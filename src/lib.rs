@@ -1,6 +1,6 @@
 use std::io::{Read, Write};
 
-use dds::{D3DFormat, Dds};
+use dds::{D3DFormat, Dds, NewD3dParams};
 
 pub use crate::format::Format;
 use crate::format::{get_dds_format, get_format_data, FormatData};
@@ -8,6 +8,8 @@ use crate::mip_map::TextureInfo;
 pub use crate::texture_header::*;
 use crate::tile::{tile, untile};
 
+#[cfg(feature = "ffi")]
+mod ffi;
 mod format;
 mod math;
 mod mip_map;
@@ -35,14 +37,14 @@ pub fn convert_to_dds<W: Write>(
   src: &[u8],
   output: &mut W,
 ) -> Result<(), dds::Error> {
-  let mut dds = Dds::new_d3d(
-    get_dds_format(&config.format),
-    config.width,
-    config.height,
-    config.depth,
-    config.mipmap_levels,
-    None,
-  )?;
+  let mut dds = Dds::new_d3d(NewD3dParams {
+    height: config.height,
+    width: config.width,
+    depth: config.depth,
+    format: get_dds_format(&config.format),
+    mipmap_levels: config.mipmap_levels,
+    caps2: None,
+  })?;
 
   let format_data = get_format_data(&config.format);
   let info = build_texture_info(config, &format_data);

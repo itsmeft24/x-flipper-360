@@ -8,6 +8,7 @@ pub enum Format {
   RGBA8,
 }
 
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub(crate) struct FormatData {
   pub(crate) block_width: u32,

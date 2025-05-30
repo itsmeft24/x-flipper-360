@@ -7,3 +7,6 @@ edition = "2021"
 dds = { git = "https://github.com/offsetting/dds" }
 modular-bitfield = "0.11"
 binrw = "0.11"
+
+[features]
+ffi = []
