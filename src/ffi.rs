@@ -1,5 +1,6 @@
 use crate::{tile, FormatData};
 
+#[no_mangle]
 pub extern "C" fn x_flipper_360_untile(
   output_buffer: *mut u8,
   output_buffer_len: usize,
@@ -28,6 +29,7 @@ pub extern "C" fn x_flipper_360_untile(
   }
 }
 
+#[no_mangle]
 pub extern "C" fn x_flipper_360_tile(
   output_buffer: *mut u8,
   output_buffer_len: usize,
